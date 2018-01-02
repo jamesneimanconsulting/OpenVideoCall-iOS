@@ -14,7 +14,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var encryptionTextField: UITextField!
     @IBOutlet weak var encryptionButton: UIButton!
     
-    fileprivate var videoProfile = AgoraRtcVideoProfile.defaultProfile()
+    fileprivate var videoProfile = AgoraVideoProfile.defaultProfile()
     fileprivate var encryptionType = EncryptionType.xts128 {
         didSet {
             encryptionButton?.setTitle(encryptionType.description(), for: UIControlState())
@@ -89,7 +89,7 @@ private extension MainViewController {
 }
 
 extension MainViewController: SettingsVCDelegate {
-    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraRtcVideoProfile) {
+    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraVideoProfile) {
         videoProfile = profile
         dismiss(animated: true, completion: nil)
     }

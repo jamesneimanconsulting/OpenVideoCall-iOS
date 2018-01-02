@@ -9,21 +9,21 @@
 import UIKit
 
 protocol SettingsVCDelegate: NSObjectProtocol {
-    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraRtcVideoProfile)
+    func settingsVC(_ settingsVC: SettingsViewController, didSelectProfile profile: AgoraVideoProfile)
 }
 
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var profileTableView: UITableView!
 
-    var videoProfile: AgoraRtcVideoProfile! {
+    var videoProfile: AgoraVideoProfile! {
         didSet {
             profileTableView?.reloadData()
         }
     }
     weak var delegate: SettingsVCDelegate?
     
-    fileprivate let profiles: [AgoraRtcVideoProfile] = AgoraRtcVideoProfile.list()
+    fileprivate let profiles: [AgoraVideoProfile] = AgoraVideoProfile.list()
     
     @IBAction func doConfirmPressed(_ sender: UIButton) {
         delegate?.settingsVC(self, didSelectProfile: videoProfile)
@@ -51,8 +51,8 @@ extension SettingsViewController: UITableViewDelegate {
     }
 }
 
-private extension AgoraRtcVideoProfile {
-    static func list() -> [AgoraRtcVideoProfile] {
-        return AgoraRtcVideoProfile.validProfileList()
+private extension AgoraVideoProfile {
+    static func list() -> [AgoraVideoProfile] {
+        return AgoraVideoProfile.validProfileList()
     }
 }
