@@ -11,14 +11,12 @@ import Foundation
 struct MediaInfo {
     var resolution = CGSize.zero
     var fps = 0
-    var bitRate = 0
     
     init() {}
     
     init?(videoProfile: AgoraVideoProfile) {
-        if let resolution = videoProfile.resolution(), let bitRate = videoProfile.bitRate() {
+        if let resolution = videoProfile.resolution() {
             self.resolution = resolution
-            self.bitRate = bitRate
             self.fps = videoProfile.fps()
         } else {
             return nil
@@ -26,7 +24,7 @@ struct MediaInfo {
     }
     
     func description() -> String {
-        return "\(Int(resolution.width))×\(Int(resolution.height)), \(fps)fps, \(bitRate)k"
+        return "\(Int(resolution.width))×\(Int(resolution.height)), \(fps)fps"
     }
 }
 
@@ -58,17 +56,5 @@ extension AgoraVideoProfile {
     
     func fps() -> Int {
         return 15
-    }
-    
-    func bitRate() -> Int? {
-        switch self {
-        case .landscape120P: return 65
-        case .landscape180P: return 140
-        case .landscape240P: return 200
-        case .landscape360P: return 400
-        case .landscape480P: return 500
-        case .landscape720P: return 1130
-        default: return nil
-        }
     }
 }
