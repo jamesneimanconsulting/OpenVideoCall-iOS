@@ -43,7 +43,7 @@ class RoomViewController: UIViewController {
     var roomName: String!
     var encryptionSecret: String?
     var encryptionType: EncryptionType!
-    var videoProfile: AgoraRtcVideoProfile!
+    var videoProfile: AgoraVideoProfile!
     weak var delegate: RoomVCDelegate?
     
     //MARK: hide & show
@@ -385,7 +385,7 @@ private extension RoomViewController {
 private extension RoomViewController {
     func loadAgoraKit() {
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
-        agoraKit.setChannelProfile(.channelProfile_Communication)
+        agoraKit.setChannelProfile(.communication)
         agoraKit.enableVideo()
         agoraKit.setVideoProfile(videoProfile, swapWidthAndHeight: false)
         
@@ -396,7 +396,7 @@ private extension RoomViewController {
             agoraKit.setEncryptionSecret(encryptionSecret)
         }
         
-        let code = agoraKit.joinChannel(byKey: nil, channelName: roomName, info: nil, uid: 0, joinSuccess: nil)
+        let code = agoraKit.joinChannel(byToken: nil, channelId: roomName, info: nil, uid: 0, joinSuccess: nil)
         
         if code == 0 {
             setIdleTimerActive(false)
@@ -452,7 +452,7 @@ extension RoomViewController: AgoraRtcEngineDelegate {
         alert(string: "Connection Lost")
     }
     
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraRtcErrorCode) {
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
         //
     }
     
@@ -474,7 +474,7 @@ extension RoomViewController: AgoraRtcEngineDelegate {
     }
     
     //user offline
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraRtcUserOfflineReason) {
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         var indexToDelete: Int?
         for (index, session) in videoSessions.enumerated() {
             if session.uid == uid {
@@ -499,7 +499,7 @@ extension RoomViewController: AgoraRtcEngineDelegate {
     //remote stat
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
         if let session = fetchSession(of: stats.uid) {
-            session.updateMediaInfo(resolution: CGSize(width: CGFloat(stats.width), height: CGFloat(stats.height)), bitRate: Int(stats.receivedBitrate), fps: Int(stats.receivedFrameRate))
+            session.updateMediaInfo(resolution: CGSize(width: CGFloat(stats.width), height: CGFloat(stats.height)), fps: Int(stats.receivedFrameRate))
         }
     }
     
