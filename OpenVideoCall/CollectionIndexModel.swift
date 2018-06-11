@@ -25,7 +25,7 @@ struct CollectionIndexModel {
         }
     }
     
-    //顶部相邻对象
+    //Top adjacent object
     static func topIndex(of index: Int, rowsPerScreen: Int) -> Int? {
         let mode = index % (rowsPerScreen * rowsPerScreen)
         if mode >= rowsPerScreen {
@@ -35,7 +35,7 @@ struct CollectionIndexModel {
         }
     }
     
-    //左侧相邻对象
+    //Left adjacent object
     static func leftIndex(of index: Int, rowsPerScreen: Int) -> Int? {
         let mode = index % (rowsPerScreen * rowsPerScreen)
         
