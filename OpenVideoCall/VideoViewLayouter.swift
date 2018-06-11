@@ -53,28 +53,64 @@ class VideoViewLayouter {
         
         switch videoViews.count {
         case 0:
-            //单人全屏
+            //full screen for one person
             let fullViewLayouts = layoutFullSessionView(selfView, inContainerView: containerView)
             layoutConstraints.append(contentsOf: fullViewLayouts)
             
         case 1:
-            //双人对方全屏
+            /***********************************
+               --------------------------
+              |                --------- |
+              |               |         ||
+              |               | loacl   ||
+              |               | view    ||
+              |               |         ||
+              |               |         ||
+              |                --------- |
+              |                          |
+              |                          |
+              |                          |
+              |                          |
+              |                          |
+              |                          |
+              |                          |
+              |                          |
+              |                          |
+               --------------------------
+            ***********************************/
             let peerView = videoViews.first!
             let fullViewLayouts = layoutFullSessionView(peerView, inContainerView: containerView)
             layoutConstraints.append(contentsOf: fullViewLayouts)
             
-            //自己右上角
             let cornerViewLayouts = layoutCornerSessionView(selfView, inContainerView: containerView)
             layoutConstraints.append(contentsOf: cornerViewLayouts)
             
         default:
             if let fullView = fullView {
-                //一拖三形式
-                //全屏
+               /**********************************
+                  --------------------------           -------------------------------------------
+                 |                          |         |                                |          |
+                 |                          |         |                                |          |
+                 |                          |         |                                |          |
+                 |                          |         |                                |----------|
+                 |                          |         |                                |          |
+                 |                          |         |                                |          |
+                 |                          |         |                                |          |
+                 |                          |         |                                |----------|
+                 |                          |         |                                |          |
+                 |                          |         |                                |          |
+                 |                          |         |                                |          |
+                 |                          |          -------------------------------------------
+                 |--------------------------|
+                 |        |        |        |
+                 |        |        |        |
+                 |        |        |        |
+                 |        |        |        |
+                  --------------------------
+              ***********************************/
                 let fullViewLayouts = layoutFullSessionView(fullView, inContainerView: containerView)
                 layoutConstraints.append(contentsOf: fullViewLayouts)
                 
-                //其他人左上角顺序排列，自己在最右
                 var smallViews = [VideoView]()
                 let smallCount = min(videoViews.count, MaxPeerCount)
                 var index = 0
@@ -95,7 +131,7 @@ class VideoViewLayouter {
                 layoutConstraints.append(contentsOf: smallViewLayouts)
                 
             } else {
-                //等分屏，最多5*5
+                // no full screen, divide the screen
                 let layouts = layoutEqualSessionViews(allViews, inContainerView: containerView)
                 layoutConstraints.append(contentsOf: layouts)
             }
@@ -125,7 +161,7 @@ class VideoViewLayouter {
 
 //MARK: - layouts
 private extension VideoViewLayouter {
-    //全屏布局
+    //layout for full screen
     func layoutFullSessionView(_ view: UIView, inContainerView containerView: UIView) -> [NSLayoutConstraint] {
         containerView.addSubview(view)
         var layouts = [NSLayoutConstraint]()
@@ -138,7 +174,7 @@ private extension VideoViewLayouter {
         return layouts
     }
     
-    //右上角布局
+    //layout to case 1 (one full view, one small view on the top of right)
     func layoutCornerSessionView(_ view: UIView, inContainerView containerView: UIView) -> [NSLayoutConstraint] {
         containerView.addSubview(view)
         var layouts = [NSLayoutConstraint]()
@@ -161,7 +197,7 @@ private extension VideoViewLayouter {
         return layouts
     }
     
-    //小屏滚动布局: 竖屏从左上开始向右排，横屏从右上开始，向下排
+    //layout for case default(one big view, some small views)
     func layoutSmallSessionViews(_ smallViews: [UIView], inContainerView containerView: UIView) -> [NSLayoutConstraint] {
         let ratio: CGFloat
         if targetSize.width > 0 && targetSize.height > 0 {
@@ -248,7 +284,7 @@ private extension VideoViewLayouter {
         return layouts
     }
     
-    //等分屏布局
+    //layout for divide the screen
     func layoutEqualSessionViews(_ allViews: [UIView], inContainerView containerView: UIView) -> [NSLayoutConstraint] {
         
         var layouts = [NSLayoutConstraint]()

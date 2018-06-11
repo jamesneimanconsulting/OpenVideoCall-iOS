@@ -324,7 +324,7 @@ private extension RoomViewController {
         
         updateSelfViewVisiable()
         
-        //只有三人及以上时才能切换布局形式
+        //Only three people or more can switch the layout
         if sessions.count >= 3 {
             backgroundDoubleTap.isEnabled = true
         } else {
