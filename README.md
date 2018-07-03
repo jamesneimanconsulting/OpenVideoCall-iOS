@@ -59,7 +59,7 @@ To build and run the sample application, you must obtain an app ID:
 - [Set Permissions and Add Frameworks and Libraries](#set-permissions-and-add-frameworks-and-libraries)
 - [Design the User Interface](#design-the-user-interface)
 - [Create the MainViewController Class](#create-the-mainviewcontroller-class)
-- [Create the MainViewController Class Delegates](#create-the-mainviewcontroller-class-delegates)
+- [Create the MainViewController Class Delegates](#create-mainviewcontroller-delegates)
 - [Create the RoomViewController Class](#create-the-roomviewcontroller-class)
 - [Create RoomViewController Agora Methods and Delegates](#create-the-roomviewcontroller-agora-methods-and-delegates)
 - [Create the ChatMessageViewController Class](#create-the-chatmessageviewcontroller-class)
