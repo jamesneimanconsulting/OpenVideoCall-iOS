@@ -1,17 +1,17 @@
 # Open Video Call iOS for Swift
 
-This quickstart enables you to quickly get started to add video chat into your iOS applications using Swift and the Agora Video SDK.
+This tutorial describes how to add video chat to your iOS applications using Swift and the Agora Video SDK.
 
-**With this sample app, you can:**
+With this sample app, you can:
 
-- [Join / leave a channel](#create-dojoinpressed()-ibaction-method)
-- [Mute / unmute audio](#video-and-audio-methods)
-- [Enable / disable video](#video-and-audio-methods)
-- [Switch camera](#camera,-speaker,-filter,-and-close-methods)
+- [Join/leave a channel](#create-dojoinpressed()-ibaction-method)
+- [Mute/unmute audio](#video-and-audio-methods)
+- [Enable/disable video](#video-and-audio-methods)
+- [Switch cameras](#camera,-speaker,-filter,-and-close-methods)
 - [Send a message to a channel](#create-send()-method)
-- [Set up resolution, frame rate, and bit rate display](#create-the-remotevideostats-event-listener)
+- [Set up the resolution, the frame rate, and the bit rate display](#create-the-remotevideostats-event-listener)
 - [Enable encryption](#create-loadagorakit()-method)
-- [Enable / disable black-and-white filter](#video-and-audio-methods)
+- [Enable/disable the black-and-white filter](#video-and-audio-methods)
 
 
 ## Prerequisites
@@ -31,52 +31,52 @@ This section shows you how to prepare, build, and run the sample application.
 
 
 ### Create an Account and Obtain an App ID
-In order to build and run the sample application you must obtain an App ID: 
+To build and run the sample application, you must obtain an app ID: 
 
-1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the signup process, you will be redirected to the Dashboard.
-2. Navigate in the Dashboard tree on the left to **Projects** > **Project List**.
-3. Copy the App ID that you obtained from the Dashboard into a text file. You will use this when you launch the app.
+1. Create a developer account at [agora.io](https://dashboard.agora.io/signin/). Once you finish the sign-up process, you are redirected to the dashboard.
+2. Navigate in the dashboard tree on the left to **Projects** > **Project List**.
+3. Copy the app ID that you obtained from the dashboard into a text file. You will use this when you launch the app.
 
 
 ### Update and Run the Sample Application 
 
-1. Open `OpenVideoCall.xcodeproj` and edit the `KeyCenter.swift` file. In the `agoraKit` declaration, update `<#Your App Id#>` with your App ID.
+1. Open `OpenVideoCall.xcodeproj` and edit the `KeyCenter.swift` file. In the `agoraKit` declaration, update `<#Your App Id#>` with your app ID.
 
 	``` Swift
     static let AppId: String = <#Your App Id#>
 	```
 
-2. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the following files from the SDK's `libs` folder into the sample application's `OpenVideoCall` folder.
+2. Download the [Agora Video SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy the following files from the SDK `libs` folder into the sample application `OpenVideoCall` folder.
 	
 	- `AograRtcEngineKit.framework`
 	- `AgoraRtcCryptoLoader.framework`
 	- `libcrypto.a`
 		
-3. Connect your iPhone／iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
+3. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
 
 
 ## Steps to Create the Sample 
 
 - [Set Permissions and Add Frameworks and Libraries](#set-permissions-and-add-frameworks-and-libraries)
 - [Design the User Interface](#design-the-user-interface)
-- [Create MainViewController Class](#create-mainviewcontroller-class)
-- [Create MainViewController Class Delegates](#create-mainviewcontroller-class-delegates)
-- [Create RoomViewController Class](#create-roomviewcontroller-class)
+- [Create the MainViewController Class](#create-mainviewcontroller-class)
+- [Create the MainViewController Class Delegates](#create-mainviewcontroller-class-delegates)
+- [Create the RoomViewController Class](#create-roomviewcontroller-class)
 - [Create RoomViewController Agora Methods and Delegates](#create-roomviewcontroller-agora-methods-and-delegates)
-- [Create ChatMessageViewController Class](#create-chatmessageviewcontroller-class)
-- [Create SettingsViewController Class](#create-settingsviewcontroller-class)
+- [Create the ChatMessageViewController Class](#create-chatmessageviewcontroller-class)
+- [Create the SettingsViewController Class](#create-settingsviewcontroller-class)
 
 ### Set Permissions and Add Frameworks and Libraries
 
-Under the **Capabilities** tab, ensure the **Audio, AirPlay, and Picture in Picture** mode is enabled.
+Under the **Capabilities** tab, enable **Audio, AirPlay, and Picture in Picture** mode.
 
 ![capabilitiesTab.jpg](images/capabilitiesTab.jpg)
 
-Open the `info.plist` file and ensure the camera and microphone privacy settings are enabled for the application.
+Open the `info.plist` file. Enable the camera and microphone privacy settings for the application.
 
 ![infoPlist.jpg](images/infoPlist.jpg)
 
-Under the **Build Phases** tab, ensure the following frameworks and libraries are added to your project
+Under the **Build Phases** tab, add the following frameworks and libraries to your project:
 
 - `SystemConfiguration.framework`
 - `libresolv.tbd`
@@ -95,14 +95,14 @@ Under the **Build Phases** tab, ensure the following frameworks and libraries ar
 
 ### Design the User Interface
 
-- [Add assets](#add-assets)
-- [Create MainViewController UI](#create-mainviewcontroller-ui)
-- [Create RoomViewController and ChatMessageViewController UI](#create-roomviewcontroller-and-chatmessageviewcontroller-ui)
-- [Create SettingsViewController UI](#create-settingsviewcontroller-ui)
+- [Add Assets](#add-assets)
+- [Create the MainViewController UI](#create-mainviewcontroller-ui)
+- [Create the RoomViewController UI and the ChatMessageViewController UI](#create-roomviewcontroller-and-chatmessageviewcontroller-ui)
+- [Create the SettingsViewController UI](#create-settingsviewcontroller-ui)
 
-#### Add assets
+#### Add Assets
 
-Ensure the following assets are in `Assets.xcassets`.
+Add the following assets to `Assets.xcassets`.
 
 **Note:** Use Xcode to import assets to `Assets.xcassets`. PDF files are used for these assets, which contain images for each iOS screen resolution.
 
@@ -114,7 +114,7 @@ Ensure the following assets are in `Assets.xcassets`.
 |`btn_cutaways`|An image of a camera and rotational arrows to switch between the two cameras|
 |`btn_endcall`|An image of a red telephone for the *hang up* button|
 |`btn_filter` and `btn_filter_blue`|Images of glasses for filtering|
-|`btn_keyboard_hide`|An image of a down arrow for uses to hide the visual keyboard|
+|`btn_keyboard_hide`|An image of a down arrow for uses to hide/show the visual keyboard|
 |`btn_message` and `btn_message_blue`|Images of chat bubbles to initiate a call|
 |`btn_mute` and `btn_mute_blue`|Images of a microphone to mute/unmute audio|
 |`btn_setting`|An image of a cog to open the settings window|
@@ -122,7 +122,7 @@ Ensure the following assets are in `Assets.xcassets`.
 |`btn_video`|An image of a camera to start video|
 |`btn_voice`|An image of an arrow indicating that audio chat is enabled|
 
-#### Create MainViewController UI
+#### Create the MainViewController UI
 
 Create the layout for the `MainViewController`.
 
@@ -130,7 +130,7 @@ Create the layout for the `MainViewController`.
 
 ![MainViewControllerUI.jpg](images/MainViewControllerUI.jpg)
 
-#### Create RoomViewController and ChatMessageViewController UI
+#### Create the RoomViewController UI and the ChatMessageViewController UI
 
 Create the layout for the `RoomViewController` and `ChatMessageViewController`. The `ChatMessageViewController` view is embedded in the `RoomViewController` view.
 
@@ -140,35 +140,35 @@ Create the layout for the `RoomViewController` and `ChatMessageViewController`. 
 
 ![ChatMessageViewControllerUI.jpg](images/ChatMessageViewControllerUI.jpg)
 
-#### Create SettingsViewController UI
+#### Create the SettingsViewController UI
 
 Create the layout for the `SettingsViewController`.
 
 ![SettingsViewControllerUI.jpg](images/SettingsViewControllerUI.jpg)
 
 
-### Create MainViewController Class
+### Create the MainViewController Class
 
 *MainViewController.swift* defines and connects application functionality with the [MainViewController UI](#create-mainviewcontroller-ui).
 
 - [Define Global Variables](#define-global-variables)
-- [Override prepare() segue method](#override-prepare()-segue-method)
-- [Create doRoomNameTextFieldEditing() IBAction method](#create-doroomnametextfieldediting()-ibaction-method)
-- [Create doEncryptionTextFieldEditing() IBAction method](#create-doencryptiontextfieldediting()-ibaction-method)
-- [Create doEncryptionTypePressed() IBAction method](#create-doencryptiontypepressed()-ibaction-method)
-- [Create doJoinPressed() IBAction method](#create-dojoinpressed()-ibaction-method)
-- [Create enter() method](#create-enter()-method)
+- [Override the prepare() Segue Method](#override-prepare()-segue-method)
+- [Create the doRoomNameTextFieldEditing() IBAction Method](#create-doroomnametextfieldediting()-ibaction-method)
+- [Create the doEncryptionTextFieldEditing() IBAction Method](#create-doencryptiontextfieldediting()-ibaction-method)
+- [Create the doEncryptionTypePressed() IBAction Method](#create-doencryptiontypepressed()-ibaction-method)
+- [Create the doJoinPressed() IBAction Method](#create-dojoinpressed()-ibaction-method)
+- [Create the enter() Method](#create-enter()-method)
 
 
 #### Define Global Variables
 
-The MainViewController class has three `IBOutlet` variables. These map to the [MainViewController UI](#create-mainviewcontroller-ui) elements.
+The `MainViewController` class has three `IBOutlet` variables. These map to the [MainViewController UI](#create-mainviewcontroller-ui) elements.
 
 Variable|Description
 ----|----
-`roomNameTextField`|Maps to the **Channel name** `UITextField` in the MainViewController layout
-`encryptionTextField`|Maps to the **Encryption key** `UITextField` in the MainViewController layout
-`encryptionButton`|Maps to the **AES 128** `UIButton` in the MainViewController layout
+`roomNameTextField`|Maps to the **Channel name** `UITextField` in the `MainViewController` layout
+`encryptionTextField`|Maps to the **Encryption key** `UITextField` in the `MainViewController` layout
+`encryptionButton`|Maps to the **AES 128** `UIButton` in the `MainViewController` layout
 
 ``` Swift
 import UIKit
@@ -183,11 +183,11 @@ class MainViewController: UIViewController {
 }
 ```
 
-The MainViewController class has two private variables.
+The `MainViewController` class has two private variables.
 
 The `videoProfile` variable is initialized with the default Agora video profile using `AgoraVideoProfile.defaultProfile()`.
 
-The `encryptionType` is initialized to `EncryptionType.xts128`. When a new `encryptionType` is set, set the `encryptionButton` text on the to the new encryption type using `encryptionButton?.setTitle()`.
+The `encryptionType` is initialized to `EncryptionType.xts128`. When a new `encryptionType` is set, set the `encryptionButton` text to the new encryption type using `encryptionButton?.setTitle()`.
 
 ``` Swift    
     fileprivate var videoProfile = AgoraVideoProfile.defaultProfile()
@@ -199,21 +199,21 @@ The `encryptionType` is initialized to `EncryptionType.xts128`. When a new `encr
     }
 ```
 
-#### Override prepare() segue method
+#### Override the prepare() Segue Method
 
 Override the `prepare()` segue method to manage the application navigation. 
 
-If the `segueId` is `mainToSettings`, prepare the settings view through the segue's destination `SettingsViewController`.
+If the `segueId` is `mainToSettings`, prepare the settings view through the segue destination `SettingsViewController`:
 
-- Set `settingsVC.videoProfile` to the current `videoProfile`
-- Set `settingsVC.delegate` to `self`
+- Set `settingsVC.videoProfile` to the current `videoProfile`.
+- Set `settingsVC.delegate` to `self`.
 
-If the `segueId` is `mainToRoom `, prepare the room view through the segue's destination is `RoomViewController`.
+If the `segueId` is `mainToRoom `, prepare the room view through the segue destination `RoomViewController`:
 
-- Set `roomVC.roomName` to `sender`
-- Set `roomVC.encryptionSecret` to the text entered in the `encryptionTextField`
-- Set `roomVC.encryptionType ` to the current `encryptionType`
-- Set `roomVC.videoProfile ` to the current `videoProfile`
+- Set `roomVC.roomName` to `sender`.
+- Set `roomVC.encryptionSecret` to the text entered in the `encryptionTextField`.
+- Set `roomVC.encryptionType ` to the current `encryptionType`.
+- Set `roomVC.videoProfile ` to the current `videoProfile`.
 - Set `roomVC.delegate` to `self`.
 
 ``` Swift    
@@ -240,9 +240,9 @@ If the `segueId` is `mainToRoom `, prepare the room view through the segue's des
     }
 ```
 
-#### Create doRoomNameTextFieldEditing() IBAction method
+#### Create the doRoomNameTextFieldEditing() IBAction Method
 
-The `doRoomNameTextFieldEditing()` `IBAction` method is invoked by `roomNameTextField`. When the `UITextField` text is edited, ensure the text is formatted properly by using `MediaCharacter.updateToLegalMediaString()`.
+The `doRoomNameTextFieldEditing()` `IBAction` method is invoked by `roomNameTextField`. When the `UITextField` text is edited, format the text using `MediaCharacter.updateToLegalMediaString()`.
 
 ``` Swift    
     @IBAction func doRoomNameTextFieldEditing(_ sender: UITextField) {
@@ -253,9 +253,9 @@ The `doRoomNameTextFieldEditing()` `IBAction` method is invoked by `roomNameText
     }
 ```
 
-#### Create doEncryptionTextFieldEditing() IBAction method
+#### Create the doEncryptionTextFieldEditing() IBAction Method
 
-The `doEncryptionTextFieldEditing()` `IBAction` method is invoked by `encryptionTextField`. When the `UITextField` text is edited, ensure the text is formatted properly by using `MediaCharacter.updateToLegalMediaString()`.
+The `doEncryptionTextFieldEditing()` `IBAction` method is invoked by `encryptionTextField`. When the `UITextField` text is edited, format the text  using `MediaCharacter.updateToLegalMediaString()`.
 
 
 ``` Swift    
@@ -267,17 +267,17 @@ The `doEncryptionTextFieldEditing()` `IBAction` method is invoked by `encryption
     }
 ```
 
-#### Create doEncryptionTypePressed() IBAction method
+#### Create the doEncryptionTypePressed() IBAction Method
 
-The `doEncryptionTypePressed()` `IBAction` method is invoked by `encryptionButton`. When the `UIButton` is pressed, create an popover UI object using `UIAlertController()`.
+The `doEncryptionTypePressed()` `IBAction` method is invoked by `encryptionButton`. When the `UIButton` is pressed, create a popover UI object using `UIAlertController()`:
 
-Create a `UIAlertAction` object for each encryption type and add it to `sheet`.
+1. Create a `UIAlertAction` object for each encryption type and add it to `sheet`.
 
-Create a `cancel` `UIAlertAction` object and add it to `sheet`.
+2. Create a `cancel` `UIAlertAction` object and add it to `sheet`.
 
-Apply the popover above `encryptionButton` by setting `sheet.popoverPresentationController?.sourceView` and setting `sheet.popoverPresentationController?.permittedArrowDirections` to `.up`.
+3. Apply the popover above `encryptionButton` by setting `sheet.popoverPresentationController?.sourceView` and setting `sheet.popoverPresentationController?.permittedArrowDirections` to `.up`.
 
-Display the popover using `present()`.
+4. Display the popover using `present()`.
 
 
 ``` Swift    
@@ -299,9 +299,9 @@ Display the popover using `present()`.
     }
 ```
 
-#### Create doJoinPressed() IBAction method
+#### Create the doJoinPressed() IBAction Method
 
-The **JoinChannel** UI Button in the MainViewController layout invokes the `doJoinPressed()` `IBAction` method. This method enters the user into the room specified by `roomNameTextField` using enter().
+The **JoinChannel** UI Button in the `MainViewController` layout invokes the `doJoinPressed()` `IBAction` method. This method enters the user into the room specified by `roomNameTextField` using `enter()`.
 
 ``` Swift    
     @IBAction func doJoinPressed(_ sender: UIButton) {
@@ -309,7 +309,7 @@ The **JoinChannel** UI Button in the MainViewController layout invokes the `doJo
     }
 ```
 
-#### Create enter() method
+#### Create the enter() Method
 
 The `enter()` method ensures the room name is valid before navigating to the room view using `performSegue()`.
 
@@ -326,7 +326,7 @@ private extension MainViewController {
 
 ### Create MainViewController Delegates
 
-The `settingsVC` method is a delegate method for the SettingsViewController. This method is invoked when the video profile for the SettingsViewController changes. It updates `videoProfile`, and dismisses the view using `dismiss()`.
+The `settingsVC` method is a delegate method for the `SettingsViewController`. This method is invoked when the video profile for the `SettingsViewController` changes. It updates the `videoProfile`, and dismisses the view using `dismiss()`.
 
 ``` Swift    
 extension MainViewController: SettingsVCDelegate {
@@ -337,7 +337,7 @@ extension MainViewController: SettingsVCDelegate {
 }
 ```
 
-The `roomVCNeedClose` method is a delegate method for the RoomVCDelegate. This method is invoked when the user leaves the room, and dismisses the view using `dismiss()`.
+The `roomVCNeedClose` method is a delegate method for the `RoomVCDelegate`. This method is invoked when the user leaves the room, and dismisses the view using `dismiss()`.
 
 ``` Swift    
 extension MainViewController: RoomVCDelegate {
@@ -347,10 +347,10 @@ extension MainViewController: RoomVCDelegate {
 }
 ```
 
-The `textFieldShouldReturn` method is a delegate method for the `UITextField` objects in MainViewController. This method is invoked when the user presses the keyboard return.
+The `textFieldShouldReturn` method is a delegate method for the `UITextField` objects in `MainViewController`. This method is invoked when the user presses the keyboard return.
 
-- If the current text field is `roomNameTextField` enter the user into the specified room using `enter`.
-- If the current text field is `encryptionTextField ` dismisses the keyboard using `textField.resignFirstResponder()`.
+- If the current text field is `roomNameTextField`, enter the user into the specified room using `enter`.
+- If the current text field is `encryptionTextField `, dismiss the keyboard using `textField.resignFirstResponder()`.
 
 ``` Swift    
 extension MainViewController: UITextFieldDelegate {
@@ -366,11 +366,11 @@ extension MainViewController: UITextFieldDelegate {
 }
 ``` 
  
-### Create RoomViewController Class
+### Create the RoomViewController Class
 
 *RoomViewController.swift* defines and connects application functionality with the [RoomViewController UI](#create-roomviewcontroller-and-chatmessageviewcontroller-ui).
 
-- [Define RoomVCDelegate Protocol](#define-roomvcdelegate-protocol)
+- [Define the RoomVCDelegate Protocol](#define-roomvcdelegate-protocol)
 - [Define Global Variables](#define-global-variables)
 - [Define IBOutlet Variables](#define-iboutlet-variables)
 - [Define Private Class Variables](#define-private-class-variables)
@@ -378,9 +378,9 @@ extension MainViewController: UITextFieldDelegate {
 - [Create IBAction Methods](#create-ibaction-methods)
 - [Create Private Methods](#create-private-methods)
 
-#### Define RoomVCDelegate Protocol
+#### Define the RoomVCDelegate Protocol
 
-The `roomVCNeedClose()` method is used for communication between the RoomViewController and its delegate. The method informs the delegate  to close the room.
+The `roomVCNeedClose()` method is used for communication between the `RoomViewController` class and its delegate. The method informs the delegate  to close the room.
 
 ``` Swift
 import UIKit
@@ -392,7 +392,7 @@ protocol RoomVCDelegate: class {
 
 #### Define Global Variables
 
-The RoomViewController class has five public variables. These variables manage the RoomViewController settings.
+The `RoomViewController` class has five public variables. These variables manage the `RoomViewController` settings.
 
 Variable|Description
 ----|----
@@ -400,7 +400,7 @@ Variable|Description
 `encryptionSecret`|The encryption key for the room
 `encryptionType`|The encryption type for the room
 `videoProfile`|The video profile for the room
-`delegate`|The delegate for the RoomViewController
+`delegate`|The delegate for the `RoomViewController` class
 `AgoraRtcEngineKit`|The Agora RTC Engine SDK object
 
 ``` Swift    
@@ -420,7 +420,7 @@ Variable|Description
 
 #### Define IBOutlet Variables
 
-The RoomViewController class has `IBOutlet` variables to manage buttons, view containers, and other UI elements. The variables map to the [RoomViewController UI](#create-roomviewcontroller-ui) elements.
+The `RoomViewController` class has `IBOutlet` variables to manage buttons, view containers, and handle other UI elements. The variables map to the [RoomViewController UI](#create-roomviewcontroller-ui) elements.
 
 Variable|Description
 ----|----
@@ -438,8 +438,8 @@ Variable|Description
 `messageInputerView`|Container for message creation
 `messageInputerBottom`|Layout constraint for the message creation container
 `messageTextField`|Text field for the message creation
-`backgroundTap`|Single tap gesture recognizer
-`backgroundDoubleTap`|Double tap gesture recognizer
+`backgroundTap`|Single-tap gesture recognizer
+`backgroundDoubleTap`|Double-tap gesture recognizer
 
 ``` Swift
 class RoomViewController: UIViewController {
@@ -482,9 +482,9 @@ class RoomViewController: UIViewController {
 
 ##### UI Management Variables
 
-The `shouldHideFlowViews` variable defaults to `false`. When this variable changes, the `flowViews` are to hidden / not hidden.
+The `shouldHideFlowViews` variable defaults to `false`. When this variable changes, the `flowViews` are hidden/not hidden.
 
-The `videoViewLayouter` variable is initialized by default, and handles the layout for the video views.
+The `videoViewLayouter` variable is initialized by default and handles the layout for the video views.
 
 ``` Swift    
     //MARK: hide & show
@@ -515,9 +515,9 @@ The `videoViewLayouter` variable is initialized by default, and handles the layo
 
 The `videoSessions` and `doubleClickFullSession` variables handle the video sessions for the room.
 
-When `videoSessions` is set, the interface is updated with the video sessions, using `updateInterface()`.
+When `videoSessions` is set, update the interface with the video sessions using `updateInterface()`.
 
-When `doubleClickFullSession` is set, the interface is updated with the video sessions, using `updateInterface()` if the number of sessions is 3 or more and the interface hasn't already been updated (to avoid duplication).
+When `doubleClickFullSession` is set, update the interface with the video sessions using `updateInterface()` if (1) the number of sessions is `3` or more, and (2) the interface has not already been updated (to avoid duplication).
 
 The `dataChannelId` is set to `-1` by default and manages the room channel.
 
@@ -552,16 +552,16 @@ The `currentAlert` is not set by default and is available for use to display ale
 
 ##### Audio and Video Control Variables
 
-The `audioMuted` and `videoMuted` variables are set to `false` by default, and manage the audio and video streams.
+The `audioMuted` and `videoMuted` variables are set to `false` by default, and manage the audio and video streams, respectively.
 
-When `audioMuted` is set, the `muteAudioButton` image is updated, and the audio stream is muted / unmuted using `agoraKit.muteLocalAudioStream()`.
+When `audioMuted` is set, the `muteAudioButton` image is updated, and the audio stream is muted/unmuted using `agoraKit.muteLocalAudioStream()`.
 
 When `videoMuted` is set:
 
-- The `muteVideoButton` image is updated
-- The `cameraButton` and `speakerButton` are set to hidden / not hidden 
-- The video stream is stopped / started using `agoraKit.muteLocalVideoStream()` and `setVideoMuted()`
-- The video view of the current user is set to hidden / not hidden using `updateSelfViewVisiable()`
+- The `muteVideoButton` image is updated.
+- The `cameraButton` and `speakerButton` are set to hidden/not hidden. 
+- The video stream is stopped/started using `agoraKit.muteLocalVideoStream()` and `setVideoMuted()`.
+- The video view of the current user is set to hidden/not hidden using `updateSelfViewVisiable()`.
 
 ``` Swift
     //MARK: mute
@@ -585,7 +585,7 @@ When `videoMuted` is set:
     }
 ```
 
-The `speakerEnabled` variable is set to `true` by default. When this variable is set, the `speakerButton` image is updated and the speakerphone is enabled / disabled using `agoraKit.setEnableSpeakerphone()`. 
+The `speakerEnabled` variable is set to `true` by default. When this variable is set, the `speakerButton` image is updated and the speakerphone is enabled/disabled using `agoraKit.setEnableSpeakerphone()`. 
 
 ``` Swift
     //MARK: speaker
@@ -601,9 +601,9 @@ The `speakerEnabled` variable is set to `true` by default. When this variable is
 
 The `isFiltering` variable is set to `false` by default. When this variable is set:
 
-- The creation of `agoraKit` is verified
-- If filtering is enabled, set the video preprocessing using `AGVideoPreProcessing.registerVideoPreprocessing()` and update the `filterButton` with the blue image 
-- If filtering is not enabled, update the `filterButton` with the white image
+- The creation of `agoraKit` is verified.
+- If filtering is enabled, set the video preprocessing using `AGVideoPreProcessing.registerVideoPreprocessing()` and update the `filterButton` with the blue image. 
+- If filtering is not enabled, update the `filterButton` with the white image.
 
 ``` Swift
     //MARK: filter
@@ -628,11 +628,11 @@ The `isFiltering` variable is set to `false` by default. When this variable is s
 
 The `chatMessageVC` variable manages the chat message list.
 
-The `isInputing` variable is set to `false` as the default. When this is set
+The `isInputing` variable is set to `false` as the default. When this is set:
 
-- `messageTextField` is activated / deactivated using `becomeFirstResponder()` / `resignFirstResponder()`
-- `messageInputerView` is hidden / unhidden
-- `messageButton` image is updated using `messageButton?.setImage()`
+- the `messageTextField` is activated/deactivated using `becomeFirstResponder()`/`resignFirstResponder()`.
+- the `messageInputerView` is hidden/unhidden.
+- the`messageButton` image is updated using `messageButton?.setImage()`.
 
 ``` Swift
     //MARK: text message
@@ -659,12 +659,12 @@ Initialize `cryptoLoader` using `AgoraRtcCryptoLoader()`. This object manages Ag
 
 #### Create Delegate and Superclass Methods
 
-The `viewDidLoad()` method initializes RoomViewController. 
+The `viewDidLoad()` method initializes the `RoomViewController`: 
 
-- Set the `roomNameLabel` text
-- Set the `backgroundTap` gesture recognizer to fail on double tap using `backgroundTap.require()`
-- Add the keyboard event listener using `addKeyboardObserver()`
-- Load the Agora engine SDK using `loadAgoraKit()`
+1. Set the `roomNameLabel` text.
+2. Set the `backgroundTap` gesture recognizer to fail on double-tap using `backgroundTap.require()`.
+3. Add the keyboard event listener using `addKeyboardObserver()`.
+4. Load the Agora RTC engine SDK using `loadAgoraKit()`.
 
 ``` Swift
     //MARK: - life cycle
@@ -679,7 +679,7 @@ The `viewDidLoad()` method initializes RoomViewController.
     }
 ```
 
-The `prepare()` segue method manages the navigation for the RoomViewController. If the `segueId` is `VideoVCEmbedChatMessageVC` set `chatMessageVC` to the `ChatMessageViewController`, otherwise do nothing.
+The `prepare()` segue method manages the navigation for the `RoomViewController`. If the `segueId` is `VideoVCEmbedChatMessageVC`, set `chatMessageVC` to the `ChatMessageViewController`; otherwise do nothing.
 
 ``` Swift
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -720,7 +720,7 @@ Return `.all` for `supportedInterfaceOrientations` to allow the sample applicati
     }
 ```
 
-The `textFieldShouldReturn()` delegate method applies to all `UITextField` elements in the RoomViewController layout. This method is invoked when the keyboard return is pressed while editing the text fields.
+The `textFieldShouldReturn()` delegate method applies to all `UITextField` elements in the `RoomViewController` layout. This method is invoked when the keyboard return is pressed while editing the text fields.
 
 If the text field is not empty, invoke the `send()` method, and clear the text in the text field.
 
@@ -739,7 +739,7 @@ extension RoomViewController: UITextFieldDelegate {
 
 #### Create IBAction Methods
 
-These `IBAction` methods map to the UI elements for RoomViewController.
+These `IBAction` methods map to the UI elements for the `RoomViewController`:
 
 - [Message Methods](#message-methods)
 - [Video and Audio Methods](#video-and-audio-methods)
@@ -839,7 +839,7 @@ The `doBackDoubleTapped()` method is invoked by the `backgroundDoubleTap` gestur
 
 #### Create Private Methods
 
-The private methods for RoomViewController are created as functions in a private extension.
+The private methods for the `RoomViewController` are created as functions in a private extension.
 
 ``` Swift
 //MARK: - private
@@ -847,7 +847,6 @@ private extension RoomViewController {
 	...
 }
 ```
-
 - [Create the addKeyboardObserver() Method](#create-the-addkeyboardobserver()-method)
 - [Create the updateInterface() Methods](#create-the-updateinterface()-methods)
 - [Create Session Methods](#create-session-methods)
@@ -857,9 +856,9 @@ private extension RoomViewController {
 
 They `addKeyboardObserver()` method adds event listeners for keyboard events.
 
-The `UIKeyboardWillShow` event triggers before the keyboard is displayed.
+The `UIKeyboardWillShow` event is triggered before the keyboard is displayed.
 
-The `strongSelf`, `keyBoardBoundsValue`, and `durationValue` variables are set from the notifications `userInfo`. If `userInfo` doesn't not contain the relevant values, the callback is ended with a `return`. These values are used to set the following local variables:
+The `strongSelf`, `keyBoardBoundsValue`, and `durationValue` variables are set from the notifications `userInfo`. If `userInfo` does not contain the relevant values, the callback is ended with a `return`. These values are used to set the following local variables:
 
 Variable|Description
 ---|---
@@ -867,11 +866,11 @@ Variable|Description
 `duration`|Animation time
 `deltaY`|Keyboard `height`. Used to measure the keyboard vertical animation distance.
 
-Ensure the message box stays above the keyboard:
+To keep the message box above the keyboard:
 
 - If the `duration` is greater than `0`, animate `strongSelf.messageInputerBottom` using the animation type `UIKeyboardAnimationCurveUserInfoKey` if available.
 
-- If the `duration` is less than or equal to `0`, set `strongSelf.messageInputerBottom.constant` to `deltaY`
+- If the `duration` is less than or equal to `0`, set `strongSelf.messageInputerBottom.constant` to `deltaY`.
 
 ``` Swift
     func addKeyboardObserver() {
@@ -908,15 +907,15 @@ Ensure the message box stays above the keyboard:
     }
 ```
 
-The `UIKeyboardWillHide` keyboard event triggers before the keyboard hides from the screen.
+The `UIKeyboardWillHide` keyboard event is triggered before the keyboard is hidden from the screen.
 
-Set `userInfo` from the notification's `userInfo` and extract `durationValue` / `duration`.
+1. Set `userInfo` from the notification's `userInfo` and extract `durationValue`/`duration`.
 
-Ensure the message box returns to the bottom of the screen:
+2. Return the message box to the bottom of the screen:
 
 - If the `duration` is greater than `0`, animate `strongSelf.messageInputerBottom` using the animation type `UIKeyboardAnimationCurveUserInfoKey` if available.
 
-- If the `duration` is less than or equal to `0`, set `strongSelf.messageInputerBottom.constant` to `0`
+- If the `duration` is less than or equal to `0`, set `strongSelf.messageInputerBottom.constant` to `0`.
 
 
 ``` Swift            
@@ -954,7 +953,7 @@ Ensure the message box returns to the bottom of the screen:
 
 The `updateInterface()` methods handle layout updates for the video session.
 
-The `updateInterface()` method with `animation` checks if animation should be used for the update. If so, use `UIView.animate()` to animate the update over `0.3` seconds.
+- The `updateInterface()` method with `animation` checks if animation is used for the update and animates the update over `0.3` seconds using `UIView.animate()`.
 
 ``` Swift
     func updateInterface(with sessions: [VideoSession], targetSize: CGSize, animation: Bool) {
@@ -969,17 +968,17 @@ The `updateInterface()` method with `animation` checks if animation should be us
     }
 ```
 
-The `updateInterface()` method without animation sets the location for `videoViewLayouter` and video views.
+- The `updateInterface()` method without animation sets the location for `videoViewLayouter` and video views.
 
-Loop through `sessions` to retrieve each `hostingView` and append the view to `peerVideoViews`.
+Loop through `sessions` to retrieve each `hostingView` and append the view to `peerVideoViews`:
 
-- Apply `peerVideoViews` to the video layout manager using `videoViewLayouter.videoViews`
-- Set the large video view to `doubleClickFullSession?.hostingView`
-- Set `containerView` as the containing view for the videos
-- Update the layout using `videoViewLayouter.layoutVideoViews()`
-- Invoke `updateSelfViewVisiable()`
+- Apply `peerVideoViews` to the video layout manager using `videoViewLayouter.videoViews`.
+- Set the large video view to `doubleClickFullSession?.hostingView`.
+- Set `containerView` as the containing view for the videos.
+- Update the layout using `videoViewLayouter.layoutVideoViews()`.
+- Invoke `updateSelfViewVisiable()`.
 
-Note: The `backgroundDoubleTap` gesture recognizer is only enabled if there are `3` or more video sessions. This gesture recognizer enables the ability to change the layout.
+**Note:** The `backgroundDoubleTap` gesture recognizer is enabled only for `3` or more video sessions. This gesture recognizer enables the ability to change the layout.
 
 ``` Swift
     func updateInterface(with sessions: [VideoSession], targetSize: CGSize) {
@@ -1015,7 +1014,7 @@ Note: The `backgroundDoubleTap` gesture recognizer is only enabled if there are 
 
 ##### Create Session Methods
 
-The `setIdleTimerActive()` method updates the sample application's idle timer to be `active` or inactive.
+The `setIdleTimerActive()` method updates the idle timer of the sample application to `active`/inactive.
 
 ``` Swift
     func setIdleTimerActive(_ active: Bool) {
@@ -1023,7 +1022,7 @@ The `setIdleTimerActive()` method updates the sample application's idle timer to
     }
 ```
 
-The `fetchSession()` method returns the `VideoSession` for a specified user. Loop through the `videoSessions` until `session.uid` matches the `uid`.
+The `fetchSession()` method returns the `VideoSession` for a specified user. Loop through `videoSessions` until the `session.uid` matches the `uid`.
 
 ``` Swift    
     func fetchSession(of uid: UInt) -> VideoSession? {
@@ -1037,7 +1036,7 @@ The `fetchSession()` method returns the `VideoSession` for a specified user. Loo
     }
 ```
 
-The `videoSession()` method returns the `VideoSession` for the user. The difference between this method and the `fetchSession()` method is that if no `fetchSession()` exists, a new `VideoSession` object is created and appended to `videoSessions`.
+The `videoSession()` method returns the `VideoSession` for the user. The difference between this method and the `fetchSession()` method is that if no `fetchSession()` exists a new `VideoSession` object is created and appended to `videoSessions`.
 
 ``` Swift    
     func videoSession(of uid: UInt) -> VideoSession {
@@ -1051,7 +1050,7 @@ The `videoSession()` method returns the `VideoSession` for the user. The differe
     }
 ```
 
-The `setVideoMuted()` method sets starts / stops the video for a specified user. The `VideoSession` is retrieved using `fetchSession()` to apply `muted` to the `isVideoMuted` property.
+The `setVideoMuted()` method starts/stops the video for a specified user. The `VideoSession` is retrieved using `fetchSession()` to apply `muted` to the `isVideoMuted` property.
 
 ``` Swift    
     func setVideoMuted(_ muted: Bool, forUid uid: UInt) {
@@ -1061,7 +1060,7 @@ The `setVideoMuted()` method sets starts / stops the video for a specified user.
 
 ##### Create the UI Control Methods
 
-The `updateSelfViewVisiable()` method sets the user's view to hidden or not hidden. If the number of `videoSessions` is `2`, use `videoMuted` to determine if the view is hidden.
+The `updateSelfViewVisiable()` method sets the user view to hidden/not hidden. If the number of `videoSessions` is `2`, determine if the view is hidden using `videoMuted`.
 
 ``` Swift
     func updateSelfViewVisiable() {
@@ -1090,7 +1089,7 @@ The `alert()` method appends an alert message to the chat message box using `cha
 
 ### Create Agora Methods and Delegates
 
-The methods applying the Agora SDK are placed within a private extension for RoomViewController.
+The methods applying the Agora SDK are placed within a private extension for the `RoomViewController`.
 
 ``` Swift
 //MARK: - engine
@@ -1099,29 +1098,29 @@ private extension RoomViewController {
 }
 ```
 
-- [Create loadAgoraKit() Method](#create-loadagorakit()-method)
-- [Create addLocalSession() Method](#create-addlocalsession()-method)
-- [Create leaveChannel() Method](#create-leavechannel()-method)
-- [Create send() Method](#create-send()-method)
-- [Create AgoraRtcEngineDelegate](#create-agorartcenginedelegate)
+- [Create the loadAgoraKit() Method](#create-loadagorakit()-method)
+- [Create the addLocalSession() Method](#create-addlocalsession()-method)
+- [Create the leaveChannel() Method](#create-leavechannel()-method)
+- [Create the send() Method](#create-send()-method)
+- [Create the AgoraRtcEngineDelegate](#create-agorartcenginedelegate)
 
 
-#### Create loadAgoraKit() Method
+#### Create the loadAgoraKit() Method
 
-The `loadAgoraKit()` method initializes the Agora RTC engine using `AgoraRtcEngineKit.sharedEngine()`.
+The `loadAgoraKit()` method initializes the Agora RTC engine using `AgoraRtcEngineKit.sharedEngine()`:
 
-Set the channel profile to `.communication`, enable video, and set the `videoProfile`.
+1. Set the channel profile to `.communication`, enable video, and set the `videoProfile`.
 
-Invoke `addLocalSession()` and start the preview using `agoraKit.startPreview()`.
+2. Invoke `addLocalSession()` and start the preview using `agoraKit.startPreview()`.
 
-If `encryptionSecret` is not empty, set the encryption using `agoraKit.setEncryptionMode()` and `agoraKit.setEncryptionSecret()`.
+3. If `encryptionSecret` is not empty, set the encryption using `agoraKit.setEncryptionMode()` and `agoraKit.setEncryptionSecret()`.
 
-Join the channel `roomName` using `agoraKit.joinChannel()`.
+4. Join the channel `roomName` using `agoraKit.joinChannel()`:
 
-- If `code` is equal to `0`, the channel join is successful. Disable the idle timer using `setIdleTimerActive`.
+- If the `code` is equal to `0`, the channel join is successful. Disable the idle timer using `setIdleTimerActive`.
 - If the channel join is not successful, display an error message alert using `self.alert()`.
 
-Complete the method with `agoraKit.createDataStream()` to create a data stream for the joined channel.
+5. Complete the method with `agoraKit.createDataStream()` to create a data stream for the joined channel.
 
 ``` Swift
     func loadAgoraKit() {
@@ -1151,11 +1150,11 @@ Complete the method with `agoraKit.createDataStream()` to create a data stream f
     }
 ```
 
-#### Create addLocalSession() Method
+#### Create the addLocalSession() Method
 
 The `addLocalSession()` method appends the local video session to `videoSessions` and sets up the local video view using `agoraKit.setupLocalVideo()`.
 
-If `MediaInfo` is available for the `videoProfile`, set the local session's media info property using `localSession.mediaInfo`.
+If `MediaInfo` is available for the `videoProfile`, set the media info property for the local session using `localSession.mediaInfo`.
 
 ``` Swift
     func addLocalSession() {
@@ -1169,16 +1168,16 @@ If `MediaInfo` is available for the `videoProfile`, set the local session's medi
     }
 ```
 
-#### Create leaveChannel() Method
+#### Create the leaveChannel() Method
 
 The `leaveChannel()` method enables the user to leave the video session.
 
-- Clear the local video and leave the channel by applying `nil` as the parameter for `agoraKit.setupLocalVideo()` and `agoraKit.leaveChannel()`.
-- Stop the video preview using `agoraKit.stopPreview()` and set `isFiltering` to `false`.
-- Loop through `videoSessions` and remove its `hostingView` from the superview using `removeFromSuperview()`. 
-- Clear the video sessions array using `videoSessions.removeAll()`.
-- Set the idle timer to active using `setIdleTimerActive()`.
-- Complete the method by invoking the room to close using `delegate?.roomVCNeedClose()`.
+1. Clear the local video and leave the channel by applying `nil` as the parameter for `agoraKit.setupLocalVideo()` and `agoraKit.leaveChannel()`.
+2. Stop the video preview using `agoraKit.stopPreview()` and set `isFiltering` to `false`.
+3. Loop through `videoSessions` and remove its `hostingView` from the superview using `removeFromSuperview()`. 
+4. Clear the video sessions array using `videoSessions.removeAll()`.
+5. Set the idle timer to active using `setIdleTimerActive()`.
+6. Complete the method by invoking the room to close using `delegate?.roomVCNeedClose()`.
 
 ``` Swift
     func leaveChannel() {
@@ -1197,9 +1196,9 @@ The `leaveChannel()` method enables the user to leave the video session.
     }
 ```
 
-#### Create send() Method
+#### Create the send() Method
 
-The `send()` method sends the new message to the stream using `agoraKit.sendStreamMessage()`.
+The `send()` method sends a new message to the stream using `agoraKit.sendStreamMessage()`.
 
 Append the message to the chat message view using `chatMessageVC?.append()`.
 
@@ -1212,9 +1211,9 @@ Append the message to the chat message view using `chatMessageVC?.append()`.
     }
 ```
 
-#### Create AgoraRtcEngineDelegate
+#### Create the AgoraRtcEngineDelegate
 
-The `AgoraRtcEngineDelegate` methods are added through an extension for RoomViewController.
+The `AgoraRtcEngineDelegate` methods are added through an extension for the `RoomViewController`.
 
 ``` Swift
 //MARK: - engine delegate
@@ -1238,9 +1237,9 @@ extension RoomViewController: AgoraRtcEngineDelegate {
 
 ##### Create the rtcEngine Connection Methods
 
-The `rtcEngineConnectionDidInterrupted()` method displays an alert with the error message `Connection Interrupted`
+The `rtcEngineConnectionDidInterrupted()` method displays an alert with the error message `Connection Interrupted`.
 
-The `rtcEngineConnectionDidLost()` method displays an alert with the error message `Connection Lost`
+The `rtcEngineConnectionDidLost()` method displays an alert with the error message `Connection Lost`.
 
 ``` Swift
     func rtcEngineConnectionDidInterrupted(_ engine: AgoraRtcEngineKit) {
@@ -1254,7 +1253,7 @@ The `rtcEngineConnectionDidLost()` method displays an alert with the error messa
 
 ##### Create the errorCode Event Listener
 
-The `didOccurError` event listener triggers when the Agora engine generates an error. Use this for logging and debugging purposes.
+The `didOccurError` event listener is triggered when the Agora RTC engine generates an error. Use this for logging and debugging.
 
 ``` Swift
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
@@ -1264,13 +1263,13 @@ The `didOccurError` event listener triggers when the Agora engine generates an e
 
 ##### Create the firstRemoteVideoDecodedOfUid Event Listener
 
-The `firstRemoteVideoDecodedOfUid` event listener triggers when the first remote video is decoded.
+The `firstRemoteVideoDecodedOfUid` event listener is triggered when the first remote video is decoded.
 
-Retrieve the video session of the user using `videoSession()`
+1. Retrieve the video session of the user using `videoSession()`.
 
-Set the session's dimensions using `userSession.size` and update the media info using `userSession.updateMediaInfo()`.
+2. Set the session dimensions using `userSession.size` and update the media info using `userSession.updateMediaInfo()`.
 
-Complete the method by setting up the remote video using `agoraKit.setupRemoteVideo()`.
+3. Complete the method by setting up the remote video using `agoraKit.setupRemoteVideo()`.
 
 ``` Swift
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid: UInt, size: CGSize, elapsed: Int) {
@@ -1284,9 +1283,9 @@ Complete the method by setting up the remote video using `agoraKit.setupRemoteVi
 
 ##### Create the firstLocalVideoFrameWith Event Listener
 
-The `firstLocalVideoFrameWith` event listener triggers when the first local video frame has `elapsed`.
+The `firstLocalVideoFrameWith` event listener is triggered when the first local video frame has `elapsed`.
 
-Set the video session's dimensions using `selfSession.size` and update the video interface using `updateInterface()`.
+Set the dimensions of the video session using `selfSession.size` and update the video interface using `updateInterface()`.
 
 ``` Swift
     //first local video frame
@@ -1301,12 +1300,12 @@ Set the video session's dimensions using `selfSession.size` and update the video
 
 ##### Create the didOfflineOfUid Event Listener
 
-The `didOfflineOfUid` triggers when a user goes offline.
+The `didOfflineOfUid` is triggered when a user goes offline.
 
-Loop through `videoSessions` to retrieve the offline user's video session.
+Loop through `videoSessions` to retrieve the video session of the offline user:
 
-- If the video session is found, remove the session's `hostingView` from the superview using `removeFromSuperview()`.
-- If the offline user's session is `doubleClickFullSession`, set `doubleClickFullSession` to `nil`. 
+- If the video session is found, remove the session `hostingView` from the superview using `removeFromSuperview()`.
+- If the offline user session is `doubleClickFullSession`, set `doubleClickFullSession` to `nil`. 
 
 ``` Swift
     //user offline
@@ -1330,7 +1329,7 @@ Loop through `videoSessions` to retrieve the offline user's video session.
 
 ##### Create the didVideoMuted Event Listener
 
-The `didVideoMuted` triggers when a user turns off video.
+The `didVideoMuted` is triggered when a user turns off video.
 
 Set the video to off using `setVideoMuted()`.
 
@@ -1343,7 +1342,7 @@ Set the video to off using `setVideoMuted()`.
 
 ##### Create the remoteVideoStats Event Listener
 
-The `remoteVideoStats` triggers when a statistics change for the agora engine.
+The `remoteVideoStats` is triggered when a statistic changes for the Agora RTC engine.
 
 Retrieve the video session for the user using `fetchSession()` and update the `resolution`, `height`, and `fps` using `session.updateMediaInfo()`.
 
@@ -1358,7 +1357,7 @@ Retrieve the video session for the user using `fetchSession()` and update the `r
 
 ##### Create the receiveStreamMessageFromUid Event Listener
 
-The `receiveStreamMessageFromUid` triggers when a message is received from a user.
+The `receiveStreamMessageFromUid` is triggered when a message is received from a user.
 
 The method checks that the message `string` is not empty before appending it to the chat message view using `chatMessageVC?.append()`.
 
@@ -1374,9 +1373,7 @@ The method checks that the message `string` is not empty before appending it to 
 
 ##### Create the didOccurStreamMessageErrorFromUid Event Listener
 
-The `didOccurStreamMessageErrorFromUid` triggers when a user message error occurs.
-
-The sample application uses this to log the error using `print()`.
+The `didOccurStreamMessageErrorFromUid` is triggered when a user message error occurs and then logs the error using `print()`.
 
 ``` Swift
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurStreamMessageErrorFromUid uid: UInt, streamId: Int, error: Int, missed: Int, cached: Int) {
@@ -1384,20 +1381,20 @@ The sample application uses this to log the error using `print()`.
     }
 ```
 
-### Create ChatMessageViewController
-*ChatMessageViewController.swift* defines and connects application functionality with the [ChatMessageViewController UI](#create-chatmessageviewcontroller-ui)
+### Create the ChatMessageViewController
+*ChatMessageViewController.swift* defines and connects application functionality with the [ChatMessageViewController UI](#create-chatmessageviewcontroller-ui).
 
 - [Add Global Variables and Superclass Overrides](#add-global-variables-and-superclass-overrides)
 - [Create append() Methods](#create-append()-methods)
-- [Create UITableView DataSource](#create-uitableview-datasource)
+- [Create the UITableView DataSource](#create-uitableview-datasource)
 
 #### Add Global Variables and Superclass Overrides
 
-The ChatMessageViewController defines the `IBOutlet` variable `messageTableView` which maps to the table created in the [ChatMessageViewController UI](#create-chatmessageviewcontroller-ui)
+The `ChatMessageViewController` defines the `IBOutlet` variable `messageTableView`, which maps to the table created in the [ChatMessageViewController UI](#create-chatmessageviewcontroller-ui).
 
-Initialize the private variable `messageList` to manage the array of messages for the chat.
+1. Initialize the private variable `messageList` to manage the array of messages for the chat.
 
-When the `viewDidLoad()` method is invoked, set the row height for the message table using `messageTableView.rowHeight` and the `estimatedRowHeight` to `24`.
+2. When the `viewDidLoad()` method is invoked, set the row height for the message table using `messageTableView.rowHeight` and the `estimatedRowHeight` to `24`.
 
 ``` Swift
 import UIKit
@@ -1424,9 +1421,9 @@ class ChatMessageViewController: UIViewController {
 
 The `append()` methods are used to add messages and alerts to the message window.
 
-- The `append()` method for `chat` creates a new `Message` object of type `.chat` and invokes the `append()` method for `message`.
+- The `append()` method for a `chat` creates a new `Message` object of type `.chat` and invokes the `append()` method for the `message`.
 
-- The `append()` method for `alert ` creates a new `Message` object of type `.alert` and invokes the `append()` method for `message`.
+- The `append()` method for an `alert ` creates a new `Message` object of type `.alert` and invokes the `append()` method for `message`.
 
 ``` Swift
     func append(chat text: String, fromUid uid: Int64) {
@@ -1440,11 +1437,11 @@ The `append()` methods are used to add messages and alerts to the message window
     }
 ```
 
-The `append()` method for `message` is created in an extension for `ChatMessageViewController`.
+The `append()` method for a `message` is created in an extension for the `ChatMessageViewController`.
 
-The `message` is added to `messageList`.
+The `message` is added to the `messageList`.
 
-If there are more than `20` messages in `messageList`, delete the first message in the array using `updateMessageTable()`.
+When the `messageList` contains more than `20` messages, delete the first message in the array using `updateMessageTable()`.
 
 ``` Swift
 private extension ChatMessageViewController {
@@ -1466,15 +1463,15 @@ private extension ChatMessageViewController {
 
 The `updateMessageTable()` method is a helper method to handle messages for the chat view.
 
-- Ensure `messageTableView` exists, otherwise stop the method using `return`.
+1. Check that the `messageTableView` exists. If it does not exist, stop the method using `return`.
 
-- Retrieve the `IndexPath` for the last message by using `messageList.count - 1`.
+2. Retrieve the `IndexPath` for the last message by using `messageList.count - 1`.
 
-- Invoke `tableView.beginUpdates()` and delete any necessary rows using `tableView.deleteRows()`.
+3. Invoke `tableView.beginUpdates()` and delete any necessary rows using `tableView.deleteRows()`.
 
-- Add the new message to to the table using `tableView.insertRows()` and complete the table updates using `tableView.endUpdates()`.
+4. Add the new message to the table using `tableView.insertRows()` and complete the table updates using `tableView.endUpdates()`.
 
-- Display the last message on the screen using `tableView.scrollToRow()`.
+5. Display the last message on the screen using `tableView.scrollToRow()`.
 
 ``` Swift
     func updateMessageTable(with deleted: Message?) {
@@ -1495,11 +1492,11 @@ The `updateMessageTable()` method is a helper method to handle messages for the 
     }
 ```
 
-#### Create UITableView DataSource
+#### Create the UITableView DataSource
 
-The `tableView()` data source methods are added in an extension to ChatMessageViewController. 
+The `tableView()` data source methods are added in an extension to the `ChatMessageViewController`. 
 
-Return `messageList.count` as the number of rows in the table section.
+1. Return a `messageList.count` as the number of rows in the table section.
 
 ``` Swift
 extension ChatMessageViewController: UITableViewDataSource {
@@ -1512,9 +1509,9 @@ extension ChatMessageViewController: UITableViewDataSource {
 }
 ```
 
-Create the table cell using `tableView.dequeueReusableCell()`.
+2. Create the table cell using `tableView.dequeueReusableCell()`.
 
-Set the cell's `message` using `cell.set` and return the resulting cell.
+3. Set the cell `message` using `cell.set` and return the resulting cell.
 
 ``` Swift
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1525,7 +1522,7 @@ Set the cell's `message` using `cell.set` and return the resulting cell.
     }
 ```
 
-### Create SettingsViewController
+### Create the SettingsViewController
 
 *SettingsViewController.swift* defines and connects application functionality with the [SettingsViewController UI](#create-settingsviewcontroller-ui).
 
@@ -1569,7 +1566,7 @@ When the `videoProfile` is set, `profileTableView?.reloadData()` is invoked to u
 
 The `delegate` variable is an optional `SettingsVCDelegate` object.
 
-The private `profiles` variable is is an array of `AgoraVideoProfile` objects and initialized with `AgoraVideoProfile.list()`.
+The private `profiles` variable is an array of `AgoraVideoProfile` objects and is initialized with `AgoraVideoProfile.list()`.
 
 ``` Swift
     weak var delegate: SettingsVCDelegate?
@@ -1587,9 +1584,9 @@ The `doConfirmPressed()` `IBAction` method is invoked by the **OK** button in th
 
 #### Create Delegate and DataSource Methods
 
-The `tableView()` data source methods are added in an extension to SettingsViewController. 
+The `tableView()` data source methods are added in an extension to the `SettingsViewController`. 
 
-Return `profiles.count` as the number of rows in the table section.
+1. Return the `profiles.count` as the number of rows in the table section.
 
 ``` Swift
 extension SettingsViewController: UITableViewDataSource {
@@ -1602,9 +1599,9 @@ extension SettingsViewController: UITableViewDataSource {
 }
 ```
 
-Create the table cell using `tableView.dequeueReusableCell()`.
+2. Create the table cell using `tableView.dequeueReusableCell()`.
 
-Set the cell's `selectedProfile` using `cell.update` and return the resulting cell.
+3. Set the cell's `selectedProfile` using `cell.update` and return the resulting cell.
 
 ``` Swift
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -1616,7 +1613,7 @@ Set the cell's `selectedProfile` using `cell.update` and return the resulting ce
     }
 ```
 
-The `tableView()` delegate method is added in an extension to SettingsViewController. 
+The `tableView()` delegate method is added in an extension to the `SettingsViewController`. 
 
 When a table row is selected, set `videoProfile` to the `selectedProfile`.
 
@@ -1631,7 +1628,7 @@ extension SettingsViewController: UITableViewDelegate {
 
 #### Create Agora Methods
 
-The `AgoraVideoProfile` extension adds a `list()` method, which returns and array of `AgoraVideoProfile` objects using `AgoraVideoProfile.validProfileList()`.
+The `AgoraVideoProfile` extension adds a `list()` method, which returns an array of `AgoraVideoProfile` objects using `AgoraVideoProfile.validProfileList()`.
 
 ``` Swift
 private extension AgoraVideoProfile {
@@ -1642,8 +1639,8 @@ private extension AgoraVideoProfile {
 ```
 
 ## Resources
-- Full API documentation in the [Document Center](https://docs.agora.io/en/)
-- File bugs about this sample [here](https://github.com/AgoraIO/OpenVideoCall-iOS/issues)
+- Find full API documentation in the [Document Center](https://docs.agora.io/en/)
+- [File bugs about this sample](https://github.com/AgoraIO/OpenVideoCall-iOS/issues)
 
 ## Learn More
 - [1 to 1 Video Tutorial for iOS/Swift](https://github.com/AgoraIO/Agora-iOS-Tutorial-Swift-1to1)
