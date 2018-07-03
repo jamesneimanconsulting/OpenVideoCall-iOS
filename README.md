@@ -4,13 +4,13 @@ This tutorial describes how to add video chat to your iOS applications using Swi
 
 With this sample app, you can:
 
-- [Join/leave a channel](#create-dojoinpressed()-ibaction-method)
+- [Join/leave a channel](#create-dojoinpressed-ibaction-method)
 - [Mute/unmute audio](#video-and-audio-methods)
 - [Enable/disable video](#video-and-audio-methods)
-- [Switch cameras](#camera,-speaker,-filter,-and-close-methods)
-- [Send a message to a channel](#create-send()-method)
+- [Switch camera views](#camera-speaker-filter-and-close-methods)
+- [Send a message to a channel](#create-send-method)
 - [Set up the resolution, the frame rate, and the bit rate display](#create-the-remotevideostats-event-listener)
-- [Enable encryption](#create-loadagorakit()-method)
+- [Enable encryption](#create-loadagorakit-method)
 - [Enable/disable the black-and-white filter](#video-and-audio-methods)
 
 
@@ -114,7 +114,7 @@ Add the following assets to `Assets.xcassets`.
 |`btn_cutaways`|An image of a camera and rotational arrows to switch between the two cameras|
 |`btn_endcall`|An image of a red telephone for the *hang up* button|
 |`btn_filter` and `btn_filter_blue`|Images of glasses for filtering|
-|`btn_keyboard_hide`|An image of a down arrow for uses to hide/show the visual keyboard|
+|`btn_keyboard_hide`|An image of a down arrow used to hide/show the visual keyboard|
 |`btn_message` and `btn_message_blue`|Images of chat bubbles to initiate a call|
 |`btn_mute` and `btn_mute_blue`|Images of a microphone to mute/unmute audio|
 |`btn_setting`|An image of a cog to open the settings window|
@@ -152,12 +152,12 @@ Create the layout for the `SettingsViewController`.
 *MainViewController.swift* defines and connects application functionality with the [MainViewController UI](#create-mainviewcontroller-ui).
 
 - [Define Global Variables](#define-global-variables)
-- [Override the prepare() Segue Method](#override-prepare()-segue-method)
-- [Create the doRoomNameTextFieldEditing() IBAction Method](#create-doroomnametextfieldediting()-ibaction-method)
-- [Create the doEncryptionTextFieldEditing() IBAction Method](#create-doencryptiontextfieldediting()-ibaction-method)
-- [Create the doEncryptionTypePressed() IBAction Method](#create-doencryptiontypepressed()-ibaction-method)
+- [Override the prepare() Segue Method](#override-prepar-segue-method)
+- [Create the doRoomNameTextFieldEditing() IBAction Method](#create-doroomnametextfieldediting-ibaction-method)
+- [Create the doEncryptionTextFieldEditing() IBAction Method](#create-doencryptiontextfieldediting-ibaction-method)
+- [Create the doEncryptionTypePressed() IBAction Method](#create-doencryptiontypepressed-ibaction-method)
 - [Create the doJoinPressed() IBAction Method](#create-dojoinpressed()-ibaction-method)
-- [Create the enter() Method](#create-enter()-method)
+- [Create the enter() Method](#create-enter-method)
 
 
 #### Define Global Variables
@@ -199,7 +199,7 @@ The `encryptionType` is initialized to `EncryptionType.xts128`. When a new `encr
     }
 ```
 
-#### Override the prepare() Segue Method
+#### Override the prepare Segue Method
 
 Override the `prepare()` segue method to manage the application navigation. 
 
@@ -240,7 +240,7 @@ If the `segueId` is `mainToRoom `, prepare the room view through the segue desti
     }
 ```
 
-#### Create the doRoomNameTextFieldEditing() IBAction Method
+#### Create the doRoomNameTextFieldEditing IBAction Method
 
 The `doRoomNameTextFieldEditing()` `IBAction` method is invoked by `roomNameTextField`. When the `UITextField` text is edited, format the text using `MediaCharacter.updateToLegalMediaString()`.
 
@@ -253,7 +253,7 @@ The `doRoomNameTextFieldEditing()` `IBAction` method is invoked by `roomNameText
     }
 ```
 
-#### Create the doEncryptionTextFieldEditing() IBAction Method
+#### Create the doEncryptionTextFieldEditing IBAction Method
 
 The `doEncryptionTextFieldEditing()` `IBAction` method is invoked by `encryptionTextField`. When the `UITextField` text is edited, format the text  using `MediaCharacter.updateToLegalMediaString()`.
 
@@ -267,7 +267,7 @@ The `doEncryptionTextFieldEditing()` `IBAction` method is invoked by `encryption
     }
 ```
 
-#### Create the doEncryptionTypePressed() IBAction Method
+#### Create the doEncryptionTypePressed IBAction Method
 
 The `doEncryptionTypePressed()` `IBAction` method is invoked by `encryptionButton`. When the `UIButton` is pressed, create a popover UI object using `UIAlertController()`:
 
@@ -277,7 +277,7 @@ The `doEncryptionTypePressed()` `IBAction` method is invoked by `encryptionButto
 
 3. Apply the popover above `encryptionButton` by setting `sheet.popoverPresentationController?.sourceView` and setting `sheet.popoverPresentationController?.permittedArrowDirections` to `.up`.
 
-4. Display the popover using `present()`.
+4. Display the pop using `present()`.
 
 
 ``` Swift    
@@ -299,7 +299,7 @@ The `doEncryptionTypePressed()` `IBAction` method is invoked by `encryptionButto
     }
 ```
 
-#### Create the doJoinPressed() IBAction Method
+#### Create the doJoinPressed IBAction Method
 
 The **JoinChannel** UI Button in the `MainViewController` layout invokes the `doJoinPressed()` `IBAction` method. This method enters the user into the room specified by `roomNameTextField` using `enter()`.
 
@@ -309,7 +309,7 @@ The **JoinChannel** UI Button in the `MainViewController` layout invokes the `do
     }
 ```
 
-#### Create the enter() Method
+#### Create the enter Method
 
 The `enter()` method ensures the room name is valid before navigating to the room view using `performSegue()`.
 
@@ -783,13 +783,13 @@ The `doMuteAudioPressed()` method is invoked by the `muteAudioButton` UI button 
 
 ##### Camera, Speaker, Filter, and Close Methods
 
-The `doCameraPressed()` method is invoked by the `cameraButton` UI button and switches the camera view using `agoraKit.switchCamera()`.
+The `doCameraPressed()` method is invoked by the `cameraButton` UI button action and switches the camera view using `agoraKit.switchCamera()`.
 
-The `doSpeakerPressed()` method is invoked by the `speakerButton` UI button and updates `speakerEnabled`.
+The `doSpeakerPressed()` method is invoked by the `speakerButton` UI button action and updates `speakerEnabled`.
     
-The `doFilterPressed()` method is invoked by the `filterButton` UI button and updates `isFiltering`.
+The `doFilterPressed()` method is invoked by the `filterButton` UI button action and updates `isFiltering`.
 
-The `doClosePressed()` method is invoked by the red hang-up UI button and invokes the `leaveChannel()` method.
+The `doClosePressed()` method is invoked by the red hangup UI button action and invokes the `leaveChannel()` method.
 
 ``` Swift
     @IBAction func doCameraPressed(_ sender: UIButton) {
@@ -847,12 +847,12 @@ private extension RoomViewController {
 	...
 }
 ```
-- [Create the addKeyboardObserver() Method](#create-the-addkeyboardobserver()-method)
-- [Create the updateInterface() Methods](#create-the-updateinterface()-methods)
+- [Create the addKeyboardObserver() Method](#create-the-addkeyboardobserver-method)
+- [Create the updateInterface() Methods](#create-the-updateinterface-methods)
 - [Create Session Methods](#create-session-methods)
 - [Create the UI Control Methods](#create-the-ui-control-methods)
 
-##### Create the addKeyboardObserver() Method
+##### Create the addKeyboardObserver Method
 
 They `addKeyboardObserver()` method adds event listeners for keyboard events.
 
@@ -949,11 +949,11 @@ The `UIKeyboardWillHide` keyboard event is triggered before the keyboard is hidd
         }
 ```
 
-##### Create the updateInterface() Methods
+##### Create the updateInterface Methods
 
 The `updateInterface()` methods handle layout updates for the video session.
 
-- The `updateInterface()` method with `animation` checks if animation is used for the update and animates the update over `0.3` seconds using `UIView.animate()`.
+- The `updateInterface()` method with `animation` checks if animation is used for the update, and animates the update within 0.3 seconds using `UIView.animate()`.
 
 ``` Swift
     func updateInterface(with sessions: [VideoSession], targetSize: CGSize, animation: Bool) {
@@ -1014,7 +1014,7 @@ Loop through `sessions` to retrieve each `hostingView` and append the view to `p
 
 ##### Create Session Methods
 
-The `setIdleTimerActive()` method updates the idle timer of the sample application to `active`/inactive.
+The `setIdleTimerActive()` method updates the idle timer of the sample application to be either active or inactive.
 
 ``` Swift
     func setIdleTimerActive(_ active: Bool) {
@@ -1105,7 +1105,7 @@ private extension RoomViewController {
 - [Create the AgoraRtcEngineDelegate](#create-agorartcenginedelegate)
 
 
-#### Create the loadAgoraKit() Method
+#### Create the loadAgoraKit Method
 
 The `loadAgoraKit()` method initializes the Agora RTC engine using `AgoraRtcEngineKit.sharedEngine()`:
 
@@ -1150,7 +1150,7 @@ The `loadAgoraKit()` method initializes the Agora RTC engine using `AgoraRtcEngi
     }
 ```
 
-#### Create the addLocalSession() Method
+#### Create the addLocalSession Method
 
 The `addLocalSession()` method appends the local video session to `videoSessions` and sets up the local video view using `agoraKit.setupLocalVideo()`.
 
@@ -1168,7 +1168,7 @@ If `MediaInfo` is available for the `videoProfile`, set the media info property 
     }
 ```
 
-#### Create the leaveChannel() Method
+#### Create the leaveChannel Method
 
 The `leaveChannel()` method enables the user to leave the video session.
 
@@ -1196,7 +1196,7 @@ The `leaveChannel()` method enables the user to leave the video session.
     }
 ```
 
-#### Create the send() Method
+#### Create the send Method
 
 The `send()` method sends a new message to the stream using `agoraKit.sendStreamMessage()`.
 
@@ -1342,7 +1342,7 @@ Set the video to off using `setVideoMuted()`.
 
 ##### Create the remoteVideoStats Event Listener
 
-The `remoteVideoStats` is triggered when a statistic changes for the Agora RTC engine.
+The `remoteVideoStats` event is triggered when a metric changes for the Agora RTC engine.
 
 Retrieve the video session for the user using `fetchSession()` and update the `resolution`, `height`, and `fps` using `session.updateMediaInfo()`.
 
@@ -1386,7 +1386,7 @@ The `didOccurStreamMessageErrorFromUid` is triggered when a user message error o
 
 - [Add Global Variables and Superclass Overrides](#add-global-variables-and-superclass-overrides)
 - [Create append() Methods](#create-append()-methods)
-- [Create the UITableView DataSource](#create-uitableview-datasource)
+- [Create the UITableViewDataSource Object](#create-uitableviewdatasource-object)
 
 #### Add Global Variables and Superclass Overrides
 
@@ -1394,7 +1394,7 @@ The `ChatMessageViewController` defines the `IBOutlet` variable `messageTableVie
 
 1. Initialize the private variable `messageList` to manage the array of messages for the chat.
 
-2. When the `viewDidLoad()` method is invoked, set the row height for the message table using `messageTableView.rowHeight` and the `estimatedRowHeight` to `24`.
+2. When the `viewDidLoad()` method is invoked, set the row height for the message table using `messageTableView.rowHeight` and set the `estimatedRowHeight` to `24`.
 
 ``` Swift
 import UIKit
@@ -1417,7 +1417,7 @@ class ChatMessageViewController: UIViewController {
 }
 ```
 
-#### Create append() Methods
+#### Create append Methods
 
 The `append()` methods are used to add messages and alerts to the message window.
 
@@ -1492,9 +1492,9 @@ The `updateMessageTable()` method is a helper method to handle messages for the 
     }
 ```
 
-#### Create the UITableView DataSource
+#### Create the UITableViewDataSource Object
 
-The `tableView()` data source methods are added in an extension to the `ChatMessageViewController`. 
+The `tableView()` data source methods are defined in an extension to the `ChatMessageViewController`. 
 
 1. Return a `messageList.count` as the number of rows in the table section.
 
