@@ -4,7 +4,7 @@ This tutorial describes how to add video chat to your iOS applications using Swi
 
 With this sample app, you can:
 
-- [Join/leave a channel](#create-dojoinpressed-ibaction-method)
+- [Join/leave a channel](#create-the-dojoinpressed-ibaction-method)
 - [Mute/unmute audio](#video-and-audio-methods)
 - [Enable/disable video](#video-and-audio-methods)
 - [Switch camera views](#camera-speaker-filter-and-close-methods)
