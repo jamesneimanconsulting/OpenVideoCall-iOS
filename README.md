@@ -8,9 +8,9 @@ With this sample app, you can:
 - [Mute/unmute audio](#video-and-audio-methods)
 - [Enable/disable video](#video-and-audio-methods)
 - [Switch camera views](#camera-speaker-filter-and-close-methods)
-- [Send a message to a channel](#create-send-method)
+- [Send a message to a channel](#create-the-send-method)
 - [Set up the resolution, the frame rate, and the bit rate display](#create-the-remotevideostats-event-listener)
-- [Enable encryption](#create-loadagorakit-method)
+- [Enable encryption](#create-the-loadagorakit-method)
 - [Enable/disable the black-and-white filter](#video-and-audio-methods)
 
 
@@ -26,8 +26,7 @@ With this sample app, you can:
 This section shows you how to prepare, build, and run the sample application.
 
 - [Create an Account and Obtain an App ID](#create-an-account-and-obtain-an-app-id)
-- [Integrate the Agora Video SDK](#integrate-the-agora-video-sdk)
-- [Download and Build the Sample Application](#obtain-and-build-the-sample-application) 
+- [Update and Run the Sample Application](#update-and-run-the-sample-application) 
 
 
 ### Create an Account and Obtain an App ID
@@ -59,12 +58,12 @@ To build and run the sample application, you must obtain an app ID:
 
 - [Set Permissions and Add Frameworks and Libraries](#set-permissions-and-add-frameworks-and-libraries)
 - [Design the User Interface](#design-the-user-interface)
-- [Create the MainViewController Class](#create-mainviewcontroller-class)
-- [Create the MainViewController Class Delegates](#create-mainviewcontroller-class-delegates)
-- [Create the RoomViewController Class](#create-roomviewcontroller-class)
-- [Create RoomViewController Agora Methods and Delegates](#create-roomviewcontroller-agora-methods-and-delegates)
-- [Create the ChatMessageViewController Class](#create-chatmessageviewcontroller-class)
-- [Create the SettingsViewController Class](#create-settingsviewcontroller-class)
+- [Create the MainViewController Class](#create-the-mainviewcontroller-class)
+- [Create the MainViewController Class Delegates](#create-the-mainviewcontroller-class-delegates)
+- [Create the RoomViewController Class](#create-the-roomviewcontroller-class)
+- [Create RoomViewController Agora Methods and Delegates](#create-the-roomviewcontroller-agora-methods-and-delegates)
+- [Create the ChatMessageViewController Class](#create-the-chatmessageviewcontroller-class)
+- [Create the SettingsViewController Class](#create-the-settingsviewcontroller-class)
 
 ### Set Permissions and Add Frameworks and Libraries
 
@@ -96,9 +95,9 @@ Under the **Build Phases** tab, add the following frameworks and libraries to yo
 ### Design the User Interface
 
 - [Add Assets](#add-assets)
-- [Create the MainViewController UI](#create-mainviewcontroller-ui)
-- [Create the RoomViewController UI and the ChatMessageViewController UI](#create-roomviewcontroller-and-chatmessageviewcontroller-ui)
-- [Create the SettingsViewController UI](#create-settingsviewcontroller-ui)
+- [Create the MainViewController UI](#create-the-mainviewcontroller-ui)
+- [Create the RoomViewController UI and the ChatMessageViewController UI](#create-the-roomviewcontroller-and-chatmessageviewcontroller-ui)
+- [Create the SettingsViewController UI](#create-the-settingsviewcontroller-ui)
 
 #### Add Assets
 
@@ -149,20 +148,20 @@ Create the layout for the `SettingsViewController`.
 
 ### Create the MainViewController Class
 
-*MainViewController.swift* defines and connects application functionality with the [MainViewController UI](#create-mainviewcontroller-ui).
+*MainViewController.swift* defines and connects application functionality with the [MainViewController UI](#create-the-mainviewcontroller-ui).
 
 - [Define Global Variables](#define-global-variables)
-- [Override the prepare() Segue Method](#override-prepar-segue-method)
-- [Create the doRoomNameTextFieldEditing() IBAction Method](#create-doroomnametextfieldediting-ibaction-method)
-- [Create the doEncryptionTextFieldEditing() IBAction Method](#create-doencryptiontextfieldediting-ibaction-method)
-- [Create the doEncryptionTypePressed() IBAction Method](#create-doencryptiontypepressed-ibaction-method)
-- [Create the doJoinPressed() IBAction Method](#create-dojoinpressed()-ibaction-method)
-- [Create the enter() Method](#create-enter-method)
+- [Override the prepare() Segue Method](#override-the-prepar-segue-method)
+- [Create the doRoomNameTextFieldEditing() IBAction Method](#create-the-doroomnametextfieldediting-ibaction-method)
+- [Create the doEncryptionTextFieldEditing() IBAction Method](#create-the-doencryptiontextfieldediting-ibaction-method)
+- [Create the doEncryptionTypePressed() IBAction Method](#create-the-doencryptiontypepressed-ibaction-method)
+- [Create the doJoinPressed() IBAction Method](#create-the-dojoinpressed-ibaction-method)
+- [Create the enter() Method](#create-the-enter-method)
 
 
 #### Define Global Variables
 
-The `MainViewController` class has three `IBOutlet` variables. These map to the [MainViewController UI](#create-mainviewcontroller-ui) elements.
+The `MainViewController` class has three `IBOutlet` variables. These map to the [MainViewController UI](#create-the-mainviewcontroller-ui) elements.
 
 Variable|Description
 ----|----
@@ -368,9 +367,9 @@ extension MainViewController: UITextFieldDelegate {
  
 ### Create the RoomViewController Class
 
-*RoomViewController.swift* defines and connects application functionality with the [RoomViewController UI](#create-roomviewcontroller-and-chatmessageviewcontroller-ui).
+*RoomViewController.swift* defines and connects application functionality with the [RoomViewController UI](#create-the-roomviewcontroller-and-chatmessageviewcontroller-ui).
 
-- [Define the RoomVCDelegate Protocol](#define-roomvcdelegate-protocol)
+- [Define the RoomVCDelegate Protocol](#define-the-roomvcdelegate-protocol)
 - [Define Global Variables](#define-global-variables)
 - [Define IBOutlet Variables](#define-iboutlet-variables)
 - [Define Private Class Variables](#define-private-class-variables)
@@ -420,7 +419,7 @@ Variable|Description
 
 #### Define IBOutlet Variables
 
-The `RoomViewController` class has `IBOutlet` variables to manage buttons, view containers, and handle other UI elements. The variables map to the [RoomViewController UI](#create-roomviewcontroller-ui) elements.
+The `RoomViewController` class has `IBOutlet` variables to manage buttons, view containers, and handle other UI elements. The variables map to the [RoomViewController UI](#create-the-roomviewcontroller-ui) elements.
 
 Variable|Description
 ----|----
@@ -743,7 +742,7 @@ These `IBAction` methods map to the UI elements for the `RoomViewController`:
 
 - [Message Methods](#message-methods)
 - [Video and Audio Methods](#video-and-audio-methods)
-- [Camera, Speaker, Filter, and Close Methods](#camera,-speaker,-filter,-and-close-methods)
+- [Camera, Speaker, Filter, and Close Methods](#camera-speaker-filter-and-close-methods)
 - [Gesture Recognizer Methods](#gesture-recognizer-methods)
 
 
@@ -1098,11 +1097,11 @@ private extension RoomViewController {
 }
 ```
 
-- [Create the loadAgoraKit() Method](#create-loadagorakit()-method)
-- [Create the addLocalSession() Method](#create-addlocalsession()-method)
-- [Create the leaveChannel() Method](#create-leavechannel()-method)
-- [Create the send() Method](#create-send()-method)
-- [Create the AgoraRtcEngineDelegate](#create-agorartcenginedelegate)
+- [Create the loadAgoraKit() Method](#create-the-loadagorakit-method)
+- [Create the addLocalSession() Method](#create-the-addlocalsession-method)
+- [Create the leaveChannel() Method](#create-the-leavechannel-method)
+- [Create the send() Method](#create-the-send-method)
+- [Create the AgoraRtcEngineDelegate](#create-the-agorartcenginedelegate)
 
 
 #### Create the loadAgoraKit Method
@@ -1385,8 +1384,8 @@ The `didOccurStreamMessageErrorFromUid` is triggered when a user message error o
 *ChatMessageViewController.swift* defines and connects application functionality with the [ChatMessageViewController UI](#create-chatmessageviewcontroller-ui).
 
 - [Add Global Variables and Superclass Overrides](#add-global-variables-and-superclass-overrides)
-- [Create append() Methods](#create-append()-methods)
-- [Create the UITableViewDataSource Object](#create-uitableviewdatasource-object)
+- [Create append() Methods](#create-append-methods)
+- [Create the UITableViewDataSource Object](#create-the-uitableviewdatasource-object)
 
 #### Add Global Variables and Superclass Overrides
 
@@ -1524,9 +1523,9 @@ extension ChatMessageViewController: UITableViewDataSource {
 
 ### Create the SettingsViewController
 
-*SettingsViewController.swift* defines and connects application functionality with the [SettingsViewController UI](#create-settingsviewcontroller-ui).
+*SettingsViewController.swift* defines and connects application functionality with the [SettingsViewController UI](#create-the-settingsviewcontroller-ui).
 
-- [Create Variables, Protocols, and IBAction Methods](#create-variables,-protocols,-and-ibaction-methods)
+- [Create Variables, Protocols, and IBAction Methods](#create-variables-protocols-and-ibaction-methods)
 - [Create Delegate and DataSource Methods](#create-delegate-and-datasource-methods)
 - [Create Agora Methods](#create-agora-methods)
 
@@ -1542,7 +1541,7 @@ protocol SettingsVCDelegate: NSObjectProtocol {
 }
 ```
 
-The `profileTableView` `IBOutlet` variable maps to the profile table created in the [SettingsViewController UI](#create-settingsviewcontroller-ui).
+The `profileTableView` `IBOutlet` variable maps to the profile table created in the [SettingsViewController UI](#create-the-settingsviewcontroller-ui).
 
 ``` Swift
 class SettingsViewController: UIViewController {
