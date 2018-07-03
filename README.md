@@ -60,10 +60,11 @@ To build and run the sample application, you must obtain an app ID:
 - [Design the User Interface](#design-the-user-interface)
 - [Create the MainViewController Class](#create-the-mainviewcontroller-class)
 - [Create the MainViewController Class Delegates](#create-mainviewcontroller-delegates)
-- [Create the RoomViewController Class](#create-the-roomviewcontroller-class)
-- [Create RoomViewController Agora Methods and Delegates](#create-the-roomviewcontroller-agora-methods-and-delegates)
-- [Create the ChatMessageViewController Class](#create-the-chatmessageviewcontroller-class)
-- [Create the SettingsViewController Class](#create-the-settingsviewcontroller-class)
+- [Create the RoomViewController](#create-the-roomviewcontroller)
+- [Create RoomViewController Agora Methods and Delegates](#create-roomviewcontroller-agora-methods-and-delegates)
+- [Create the ChatMessageViewController](#create-the-chatmessageviewcontroller)
+- [Create the SettingsViewController](#create-the-settingsviewcontroller)
+
 
 ### Set Permissions and Add Frameworks and Libraries
 
@@ -96,7 +97,7 @@ Under the **Build Phases** tab, add the following frameworks and libraries to yo
 
 - [Add Assets](#add-assets)
 - [Create the MainViewController UI](#create-the-mainviewcontroller-ui)
-- [Create the RoomViewController UI and the ChatMessageViewController UI](#create-the-roomviewcontroller-and-chatmessageviewcontroller-ui)
+- [Create the RoomViewController UI and the ChatMessageViewController UI](#create-the-roomviewcontroller-ui-and-chatmessageviewcontroller-ui)
 - [Create the SettingsViewController UI](#create-the-settingsviewcontroller-ui)
 
 #### Add Assets
@@ -151,7 +152,7 @@ Create the layout for the `SettingsViewController`.
 *MainViewController.swift* defines and connects application functionality with the [MainViewController UI](#create-the-mainviewcontroller-ui).
 
 - [Define Global Variables](#define-global-variables)
-- [Override the prepare() Segue Method](#override-the-prepar-segue-method)
+- [Override the prepare() Segue Method](#override-the-prepare-segue-method)
 - [Create the doRoomNameTextFieldEditing() IBAction Method](#create-the-doroomnametextfieldediting-ibaction-method)
 - [Create the doEncryptionTextFieldEditing() IBAction Method](#create-the-doencryptiontextfieldediting-ibaction-method)
 - [Create the doEncryptionTypePressed() IBAction Method](#create-the-doencryptiontypepressed-ibaction-method)
@@ -198,7 +199,7 @@ The `encryptionType` is initialized to `EncryptionType.xts128`. When a new `encr
     }
 ```
 
-#### Override the prepare Segue Method
+#### Override the prepare() Segue Method
 
 Override the `prepare()` segue method to manage the application navigation. 
 
@@ -365,9 +366,9 @@ extension MainViewController: UITextFieldDelegate {
 }
 ``` 
  
-### Create the RoomViewController Class
+### Create the RoomViewController
 
-*RoomViewController.swift* defines and connects application functionality with the [RoomViewController UI](#create-the-roomviewcontroller-and-chatmessageviewcontroller-ui).
+*RoomViewController.swift* defines and connects application functionality with the [RoomViewController UI](#create-the-roomviewcontroller-ui-and-chatmessageviewcontroller-ui).
 
 - [Define the RoomVCDelegate Protocol](#define-the-roomvcdelegate-protocol)
 - [Define Global Variables](#define-global-variables)
@@ -419,7 +420,7 @@ Variable|Description
 
 #### Define IBOutlet Variables
 
-The `RoomViewController` class has `IBOutlet` variables to manage buttons, view containers, and handle other UI elements. The variables map to the [RoomViewController UI](#create-the-roomviewcontroller-ui) elements.
+The `RoomViewController` class has `IBOutlet` variables to manage buttons, view containers, and handle other UI elements. The variables map to the [RoomViewController UI](#create-the-roomviewcontroller-ui-and-chatmessageviewcontroller-ui) elements.
 
 Variable|Description
 ----|----
@@ -1086,7 +1087,7 @@ The `alert()` method appends an alert message to the chat message box using `cha
     }
 ```
 
-### Create Agora Methods and Delegates
+### Create RoomViewController Agora Methods and Delegates
 
 The methods applying the Agora SDK are placed within a private extension for the `RoomViewController`.
 
